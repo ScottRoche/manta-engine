@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdarg.h>
 
-#define LOG_MESSAGE_SIZE 512
+#define LOG_MESSAGE_SIZE 256
 
 #define VERBOSITY_LIST \
 	X(Debug),          \
