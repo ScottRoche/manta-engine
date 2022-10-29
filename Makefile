@@ -1,12 +1,13 @@
 # Copyright 2022 Scott Roche
 
 CC := g++
-CPPFLAGS :=
+CPPFLAGS := -lX11
 
 TARGET := manta
 
 SOURCE := src/main.cpp
 CORE_SOURCE := src/core/application.cpp \
+	src/core/linux/window-x11.cpp \
 	src/core/log.cpp
 
 SOURCE += $(CORE_SOURCE)

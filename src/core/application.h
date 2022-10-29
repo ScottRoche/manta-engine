@@ -1,6 +1,8 @@
 // Copyright 2022 Scott Roche
 #pragma once
 
+#include "window.h"
+
 namespace Manta
 {
 	class Application
@@ -14,5 +16,7 @@ namespace Manta
 		 * @brief Main update loop of the application
 		 */
 		void Run();
+	private:
+		Window* window;
 	};
 }
