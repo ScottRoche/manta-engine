@@ -6,7 +6,8 @@ CPPFLAGS :=
 TARGET := manta
 
 SOURCE := src/main.cpp
-CORE_SOURCE := src/core/log.cpp
+CORE_SOURCE := src/core/application.cpp \
+	src/core/log.cpp
 
 SOURCE += $(CORE_SOURCE)
 
