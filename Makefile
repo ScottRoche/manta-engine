@@ -7,7 +7,8 @@ TARGET := manta
 
 SOURCE := src/main.cpp
 CORE_SOURCE := src/core/application.cpp \
-	src/core/linux/window-x11.cpp \
+	src/core/window.cpp \
+	src/core/linux/x11-window.cpp \
 	src/core/log.cpp
 
 SOURCE += $(CORE_SOURCE)

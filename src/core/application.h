@@ -16,7 +16,8 @@ namespace Manta
 		 * @brief Main update loop of the application
 		 */
 		void Run();
+
 	private:
-		Window* window;
+		std::unique_ptr<Window> window;
 	};
 }
