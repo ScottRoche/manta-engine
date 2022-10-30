@@ -25,7 +25,7 @@ namespace Manta
 		}
 
 	private:
-		void Init();
+		void Init(const WindowProps& props);
 		void DeInit();
 		void PollEvents();
 

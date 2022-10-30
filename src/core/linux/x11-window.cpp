@@ -7,7 +7,7 @@ namespace Manta
 {
 	X11Window::X11Window(const WindowProps& props)
 	{
-		Init();
+		Init(props);
 	}
 
 	void X11Window::Update()
@@ -15,7 +15,7 @@ namespace Manta
 		PollEvents();
 	}
 
-	void X11Window::Init()
+	void X11Window::Init(const WindowProps& props)
 	{
 		unsigned long black, white;
 
