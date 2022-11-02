@@ -6,6 +6,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
+#include <GL/glx.h>
 
 typedef Window XWindow;
 
@@ -29,6 +30,8 @@ namespace Manta
 		void DeInit();
 		void PollEvents();
 
+		void CreateContext();
+
 	private:
 		struct WindowData
 		{
@@ -47,6 +50,7 @@ namespace Manta
 		int m_Screen;
 		XWindow m_Window;
 		GC m_GraphicsContext;
+		GLXContext m_GLContext;
 
 		Atom m_WMDeleteWindow;
 	};

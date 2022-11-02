@@ -1,7 +1,7 @@
 # Copyright 2022 Scott Roche
 
 CC := g++
-CPPFLAGS := -lX11
+CPPFLAGS := -lX11 -lGL
 
 TARGET := manta
 
