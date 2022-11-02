@@ -58,10 +58,6 @@ namespace Manta
 		             m_Window,
 		             ExposureMask | ButtonPressMask | KeyPressMask);
 
-		m_GraphicsContext = XCreateGC(m_Display, m_Window, 0, 0);
-		XSetBackground(m_Display, m_GraphicsContext, black);
-		XSetForeground(m_Display, m_GraphicsContext, white);
-
 		XClearWindow(m_Display, m_Window);
 		XMapRaised(m_Display, m_Window);
 
@@ -75,7 +71,6 @@ namespace Manta
 
 	void X11Window::DeInit()
 	{
-		XFreeGC(m_Display, m_GraphicsContext);
 		XDestroyWindow(m_Display, m_Window);
 		XCloseDisplay(m_Display);
 	}

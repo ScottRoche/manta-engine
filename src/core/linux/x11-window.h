@@ -45,11 +45,9 @@ namespace Manta
 
 		WindowData m_Data;
 
-		// X11 Data
 		Display* m_Display;
 		int m_Screen;
 		XWindow m_Window;
-		GC m_GraphicsContext;
 		GLXContext m_GLContext;
 
 		Atom m_WMDeleteWindow;
