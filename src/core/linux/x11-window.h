@@ -6,6 +6,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
+#include <glad/glad.h>
 #include <GL/glx.h>
 
 typedef Window XWindow;

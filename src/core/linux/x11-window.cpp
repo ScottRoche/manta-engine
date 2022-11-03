@@ -3,8 +3,6 @@
 
 #include "../log.h"
 
-#include "GL/gl.h"
-
 typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXContext, bool, const int*);
 
 namespace Manta
@@ -13,6 +11,11 @@ namespace Manta
 	{
 		Init(props);
 		CreateContext();
+
+		if (!gladLoadGLLoader((GLADloadproc)glXGetProcAddressARB))
+		{
+			LOG_ERROR("Failed to load gl");
+		}
 
 		int glMajor, glMinor;
 		glGetIntegerv(GL_MAJOR_VERSION, &glMajor);
@@ -25,6 +28,7 @@ namespace Manta
 
 	void X11Window::Update()
 	{
+		glXSwapBuffers(m_Display, m_Window);
 		PollEvents();
 	}
 
@@ -71,6 +75,7 @@ namespace Manta
 
 	void X11Window::DeInit()
 	{
+		glXDestroyContext(m_Display, m_GLContext);
 		XDestroyWindow(m_Display, m_Window);
 		XCloseDisplay(m_Display);
 	}
@@ -137,6 +142,9 @@ namespace Manta
 		                                         true,
 		                                         contextAttribs);
 
-		glXMakeCurrent(m_Display, m_Window, m_GLContext);
+		if (!glXMakeCurrent(m_Display, m_Window, m_GLContext))
+		{
+			LOG_ERROR("Failed to make context");
+		}
 	}
 }

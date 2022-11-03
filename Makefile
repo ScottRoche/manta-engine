@@ -3,6 +3,8 @@
 CC := g++
 CPPFLAGS := -lX11 -lGL
 
+INCLUDE := -Ivendor/glad/include
+
 TARGET := manta
 
 SOURCE := src/main.cpp
@@ -11,7 +13,9 @@ CORE_SOURCE := src/core/application.cpp \
 	src/core/linux/x11-window.cpp \
 	src/core/log.cpp
 
-SOURCE += $(CORE_SOURCE)
+RENDERER_SOURCE := src/renderer/renderer.cpp
+
+SOURCE += $(CORE_SOURCE) $(RENDERER_SOURCE) vendor/glad/src/glad.c
 
 BUILD_PARAMS =
 
@@ -22,10 +26,13 @@ endif
 all: $(TARGET)
 
 $(TARGET): $(SOURCE)
-	$(CC) $(CPPFLAGS) $(BUILD_PARAMS) -o $@ $^
+	$(CC) $(CPPFLAGS) $(INCLUDE) $(BUILD_PARAMS) -o $@ $^
+
+%.o: %.c
+	gcc $(CPPFLAGS) -c $< -o $@
 
 %.o: %.cpp
-	$(CC) $(CPPFLAGS) $(BUILD_PARAMS) -c $< -o $@
+	$(CC) $(CPPFLAGS) $(INCLUDE) $(BUILD_PARAMS) -c $< -o $@
 
 clean:
 	rm -f manta

@@ -2,6 +2,7 @@
 #include "application.h"
 
 #include "log.h"
+#include "../renderer/renderer.h"
 
 namespace Manta
 {
@@ -17,6 +18,8 @@ namespace Manta
 		LOG_INFO("---[ Manta Engine ]---");
 		window = Window::Create({800, 600, "Manta Engine"});
 		window->SetEventCallback(OnWindowClose);
+
+		Renderer::Init();
 	}
 
 	void Application::Run()
@@ -25,6 +28,7 @@ namespace Manta
 		while(g_IsRunning)
 		{
 			window->Update();
+			Renderer::Draw();
 		}
 	}
 }
