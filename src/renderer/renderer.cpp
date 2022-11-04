@@ -7,11 +7,13 @@
 #include "../core/log.h"
 
 #include "opengl/buffers.h"
+#include "opengl/shader.h"
 
 namespace Manta
 {
 	static OpenGLVertexBuffer* vertexBuffer;
 	static OpenGLIndexBuffer* indexBuffer;
+	static OpenGLShader* shader;
 
 	static void GLAPIENTRY MessageCallback(GLenum source,
 	                                       GLenum type,
@@ -65,63 +67,12 @@ namespace Manta
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
 
-		const char* vertexSource = "#version 460 core\n"
-			"layout (location = 0) in vec3 aPos;\n"
-			"void main() {\n"
-			"gl_Position = vec4(aPos, 1.0);\n"
-			"}\n";
-
-		unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertexShader, 1, &vertexSource, nullptr);
-		glCompileShader(vertexShader);
-
-		int success = 0;
-		glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-		if (!success)
-		{
-			char infoLog[512];
-			glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
-			LOG_ERROR("%s", infoLog);
-		}
-
-		const char* fragmentSource = "#version 460 core\n"
-			"out vec4 FragColor;\n"
-			"void main() {\n"
-			"FragColor = vec4(1.0, 1.0, 1.0, 1.0);\n"
-			"}\n";
-
-		unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragmentShader, 1, &fragmentSource, nullptr);
-		glCompileShader(fragmentShader);
-
-		success = 0;
-		glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-		if (!success)
-		{
-			char infoLog[512];
-			glGetShaderInfoLog(fragmentShader, 512, nullptr, infoLog);
-			LOG_ERROR("%s", infoLog);
-		}
-
-		unsigned int program = glCreateProgram();
-		glAttachShader(program, vertexShader);
-		glAttachShader(program, fragmentShader);
-		glLinkProgram(program);
-
-		success = 0;
-		glGetProgramiv(program, GL_LINK_STATUS, &success);
-		if (!success)
-		{
-			char infoLog[512];
-			glGetShaderInfoLog(program, 512, nullptr, infoLog);
-			LOG_ERROR("%s", infoLog);
-		}
-
-		glUseProgram(program);
+		shader = new OpenGLShader("src/assets/vert.glsl", "src/assets/frag.glsl");
 	}
 
 	void Renderer::DeInit()
 	{
+		delete shader;
 		delete vertexBuffer;
 		delete indexBuffer;
 	}

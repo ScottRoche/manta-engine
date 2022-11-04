@@ -14,7 +14,8 @@ CORE_SOURCE := src/core/application.cpp \
 	src/core/log.cpp
 
 RENDERER_SOURCE := src/renderer/renderer.cpp \
-	src/renderer/opengl/buffers.cpp
+	src/renderer/opengl/buffers.cpp \
+	src/renderer/opengl/shader.cpp
 
 SOURCE += $(CORE_SOURCE) $(RENDERER_SOURCE) vendor/glad/src/glad.c
 
