@@ -16,4 +16,16 @@ namespace Manta
 	private:
 		unsigned int m_RendererId;
 	};
+
+	class OpenGLIndexBuffer
+	{
+	public:
+		OpenGLIndexBuffer(const uint32_t* data, const uint32_t count);
+		~OpenGLIndexBuffer() = default;
+
+		void Bind();
+		void UnBind();
+	private:
+		unsigned int m_RendererId;
+	};
 }

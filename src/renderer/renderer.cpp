@@ -11,6 +11,7 @@
 namespace Manta
 {
 	static OpenGLVertexBuffer* vertexBuffer;
+	static OpenGLIndexBuffer* indexBuffer;
 
 	static void GLAPIENTRY MessageCallback(GLenum source,
 	                                       GLenum type,
@@ -42,7 +43,13 @@ namespace Manta
 		float vertices[] = {
 			-0.5f, -0.5f, 0.0f,
 			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f
+			-0.5f,  0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f
+		};
+
+		uint32_t indices[] = {
+			0, 1, 2,
+			1, 2, 3
 		};
 
 		glEnable(GL_DEBUG_OUTPUT);
@@ -53,6 +60,7 @@ namespace Manta
 		glBindVertexArray(vertexArray);
 
 		vertexBuffer = new OpenGLVertexBuffer(vertices, sizeof(vertices) / sizeof(float));
+		indexBuffer = new OpenGLIndexBuffer(indices, sizeof(indices) / sizeof(uint32_t));
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
@@ -115,11 +123,12 @@ namespace Manta
 	void Renderer::DeInit()
 	{
 		delete vertexBuffer;
+		delete indexBuffer;
 	}
 
 	void Renderer::Draw()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 	}
 }
