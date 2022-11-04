@@ -13,7 +13,8 @@ CORE_SOURCE := src/core/application.cpp \
 	src/core/linux/x11-window.cpp \
 	src/core/log.cpp
 
-RENDERER_SOURCE := src/renderer/renderer.cpp
+RENDERER_SOURCE := src/renderer/renderer.cpp \
+	src/renderer/opengl/buffers.cpp
 
 SOURCE += $(CORE_SOURCE) $(RENDERER_SOURCE) vendor/glad/src/glad.c
 

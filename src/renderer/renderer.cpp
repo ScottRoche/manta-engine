@@ -6,8 +6,12 @@
 
 #include "../core/log.h"
 
+#include "opengl/buffers.h"
+
 namespace Manta
 {
+	static OpenGLVertexBuffer* vertexBuffer;
+
 	static void GLAPIENTRY MessageCallback(GLenum source,
 	                                       GLenum type,
 	                                       GLuint id,
@@ -48,10 +52,7 @@ namespace Manta
 		glGenVertexArrays(1, &vertexArray);
 		glBindVertexArray(vertexArray);
 
-		unsigned int vertexBuffer;
-		glCreateBuffers(1, &vertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		vertexBuffer = new OpenGLVertexBuffer(vertices, sizeof(vertices) / sizeof(float));
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
@@ -113,7 +114,7 @@ namespace Manta
 
 	void Renderer::DeInit()
 	{
-
+		delete vertexBuffer;
 	}
 
 	void Renderer::Draw()
