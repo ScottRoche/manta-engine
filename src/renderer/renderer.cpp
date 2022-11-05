@@ -8,9 +8,11 @@
 
 #include "opengl/buffers.h"
 #include "opengl/shader.h"
+#include "opengl/vertex-array.h"
 
 namespace Manta
 {
+	static OpenGLVertexArray* vertexArray;
 	static OpenGLVertexBuffer* vertexBuffer;
 	static OpenGLIndexBuffer* indexBuffer;
 	static OpenGLShader* shader;
@@ -57,9 +59,7 @@ namespace Manta
 		glEnable(GL_DEBUG_OUTPUT);
 		glDebugMessageCallback(MessageCallback, 0);
 
-		unsigned int vertexArray;
-		glGenVertexArrays(1, &vertexArray);
-		glBindVertexArray(vertexArray);
+		vertexArray = new OpenGLVertexArray();
 
 		vertexBuffer = new OpenGLVertexBuffer(vertices, sizeof(vertices) / sizeof(float));
 		indexBuffer = new OpenGLIndexBuffer(indices, sizeof(indices) / sizeof(uint32_t));
@@ -75,6 +75,7 @@ namespace Manta
 		delete shader;
 		delete vertexBuffer;
 		delete indexBuffer;
+		delete vertexArray;
 	}
 
 	void Renderer::Draw()

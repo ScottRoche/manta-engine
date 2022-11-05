@@ -15,7 +15,8 @@ CORE_SOURCE := src/core/application.cpp \
 
 RENDERER_SOURCE := src/renderer/renderer.cpp \
 	src/renderer/opengl/buffers.cpp \
-	src/renderer/opengl/shader.cpp
+	src/renderer/opengl/shader.cpp \
+	src/renderer/opengl/vertex-array.cpp
 
 SOURCE += $(CORE_SOURCE) $(RENDERER_SOURCE) vendor/glad/src/glad.c
 
