@@ -1,9 +1,6 @@
 // Copyright 2022 Scott Roche
 #include "buffers.h"
 
-#include <glad/glad.h>
-#include <GL/gl.h>
-
 namespace Manta
 {
 	/***********************************************************************/ /*
@@ -27,6 +24,11 @@ namespace Manta
 	void OpenGLVertexBuffer::UnBind()
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::AddBufferAttribute(const BufferAttribute& attribute)
+	{
+		m_BufferLayout.push_back(attribute);
 	}
 
 	/***********************************************************************/ /*

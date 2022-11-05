@@ -26,4 +26,33 @@ namespace Manta
 	{
 		glBindVertexArray(0);
 	}
+
+	void OpenGLVertexArray::AddVertexBuffer(OpenGLVertexBuffer& buffer)
+	{
+		buffer.Bind();
+
+		std::vector<BufferAttribute> layout = buffer.GetBufferLayout();
+		std::size_t layoutSize = 0;
+		std::size_t offset = 0;
+		uint32_t attributeIndex = 0;
+
+		for (BufferAttribute attribute : layout)
+		{
+			layoutSize += attribute.GetCount() * GetGLTypeSize(attribute.GetType());
+		}
+
+		for (BufferAttribute attribute : layout)
+		{
+			glVertexAttribPointer(attributeIndex,
+			                      attribute.GetCount(),
+			                      attribute.GetType(),
+			                      GL_FALSE,
+			                      layoutSize,
+			                      (const void*)offset);
+			glEnableVertexAttribArray(attributeIndex);
+
+			offset += attribute.GetCount() * GetGLTypeSize(attribute.GetType());
+			attributeIndex++;
+		}
+	}
 }

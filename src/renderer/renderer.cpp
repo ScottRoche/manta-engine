@@ -45,10 +45,11 @@ namespace Manta
 	void Renderer::Init()
 	{
 		float vertices[] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f
+			/*     [Pos]               [Colour]      */
+			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f
 		};
 
 		uint32_t indices[] = {
@@ -64,8 +65,9 @@ namespace Manta
 		vertexBuffer = new OpenGLVertexBuffer(vertices, sizeof(vertices) / sizeof(float));
 		indexBuffer = new OpenGLIndexBuffer(indices, sizeof(indices) / sizeof(uint32_t));
 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
+		vertexBuffer->AddBufferAttribute({GL_FLOAT, 3});
+		vertexBuffer->AddBufferAttribute({GL_FLOAT, 4});
+		vertexArray->AddVertexBuffer(*vertexBuffer);
 
 		shader = new OpenGLShader("src/assets/vert.glsl", "src/assets/frag.glsl");
 	}
